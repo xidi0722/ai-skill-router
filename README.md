@@ -8,9 +8,11 @@
 
 An agent needs more than a tool name: is the tool executable, does its evidence apply to this task, and does that evidence still match the artifact version? This prototype checks those conditions and can abstain when a required comparison cannot be made.
 
+Use it to inspect eligibility and version-bound evidence before calling a registered scientific tool. A reachable deployment may have evidence for an older revision; requiring comparable approved evidence can make the router abstain. It is not yet suitable for unattended discovery and execution of arbitrary public models.
+
 The offline demo solves `x² − 4 = 0`, compares two **synthetic** candidates, then changes one revision and shows an abstention. The comparison scores and approvals are fixtures, not real model benchmarks.
 
-![Rendered transcript of the offline demo, generated from recorded output](assets/demo-transcript.png)
+![Rendered transcript from an earlier demo run, not a terminal screenshot](assets/demo-transcript.png)
 
 ## Quickstart
 
@@ -24,6 +26,10 @@ python examples/offline_demo.py
 No API key or network is required to run the demo after installation. Expected results: solutions `-2, 2` verified by substitution; synthetic candidate `fixture-a` selected; then `ABSTAIN` after its revision changes. On Windows, use `py -3` instead of `python` if needed.
 
 ## Who is this for?
+
+Run `python examples/python_integration.py` for success, abstain and execution failure; run `python examples/http_integration.py` for a loopback HTTP request. The caller supplies `task_id`, `inputs`, optional `constraints`, and `execute`. Inspect `decision`, `provenance`, and `execution` in the response. The service normally uses HTTP 200 for abstention and adapter failure, so inspect the body. Reconsider input or evidence after abstention; do not blindly retry invalid inputs. Transient provider connection or timeout errors may be retried with a bounded policy. The local example does not call a provider.
+
+Run `python examples/weather_evidence_gap.py` to see a real deployment abstain offline when approved comparable precipitation evidence is missing. See the [source audit](outputs/evidence-source-audit.md): WeatherBench Z500 results do not measure this single-point precipitation service, and model version binding is missing. This example does not ingest those benchmark scores or demonstrate a comparison between them.
 
 Agent developers and scientific-tool integrators exploring explicit eligibility, evidence and failure reasons. Evaluation researchers can inspect the fixture datasets and compare routing policies. The current implementation is a research prototype.
 

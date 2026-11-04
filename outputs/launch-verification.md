@@ -8,6 +8,8 @@ Use **AI Skill Router** as the display name to match the repository. Retain `uni
 
 ## Actual checks
 
+- Integration iteration, 2026-11-04 UTC: a new Python 3.12.14 Windows venv created without pip was installed using a separate pip `--python` invocation; `pytest -q` returned 46 passed. `offline_demo.py`, `python_integration.py`, `http_integration.py` and `weather_evidence_gap.py` succeeded. Localhost TCP required execution outside the restricted sandbox. CI for this iteration must be checked on its actual commit.
+
 - Rechecked this phase in a new Windows 11 / Python 3.12.14 venv: `pip install -e '.[test]' -c constraints-dev.txt`, `pytest -q` (46 passed), and the offline demo all completed. The bundled runtime required a separate pip bootstrap before the documented install command.
 - Two attempts to launch the actual demo in a visible terminal did not yield a targetable terminal window in the computer-use window inventory. The repository therefore retains the clearly labeled rendered stdout image; no genuine terminal screenshot or recording is claimed.
 

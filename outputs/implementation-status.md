@@ -2,6 +2,8 @@
 
 查核日期：2026-11-04。此文件區分目前程式碼與建議中的後續工作。
 
+本輪新增 Python 和 localhost HTTP 整合範例、實際路由結果驅動的合成候選比較表，以及 WeatherNext 部署缺少已核准降雨證據時的離線 abstain 範例；後者沒有匯入或比較 WeatherBench 分數。Windows 11／Python 3.12.14 新環境執行 46 個測試與四個範例成功，HTTP 需允許 localhost。真實模型排名品質仍未驗證。
+
 前一階段查核時此目錄尚未初始化 Git；後續已建立 repository 並連接 `origin`。2026-11-04 本階段開始時，本機 `main` 和遠端為 `fe4c3e0`，工作目錄乾淨，未找到 `AGENTS.md`。
 
 本階段新增離線 Demo、雙語入口、貢獻文件、CI workflow 與推廣材料。乾淨隔離環境安裝和 Demo 已於 Windows 11／Python 3.12.14 驗證，既有測試 46 passed。[遠端 CI](https://github.com/xidi0722/ai-skill-router/actions/runs/41841204321) 在提交 `2b0b14c` 的 Windows 與 Ubuntu、Python 3.11 和 3.12 四種組合通過；macOS 與實際終端截圖尚未驗證或製作。詳見 [launch-verification.md](launch-verification.md)。

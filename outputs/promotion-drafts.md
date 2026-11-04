@@ -4,6 +4,8 @@ Repository: https://github.com/xidi0722/ai-skill-router
 Offline demo: https://github.com/xidi0722/ai-skill-router/blob/main/examples/offline_demo.py
 Releases: https://github.com/xidi0722/ai-skill-router/releases
 
+Draft update: `python examples/python_integration.py` shows success, abstention and execution failure; `python examples/http_integration.py` sends a localhost request; `python examples/weather_evidence_gap.py` demonstrates abstention for a real deployment with no approved comparable evidence. Synthetic comparison scores remain fixtures. Show HN and DEV rules were rechecked on 2026-11-04; the owner must review authorship and applicable AI disclosure before posting. Subreddit-specific rules remain unverified. No post has been sent.
+
 ## Technical article (English)
 
 ### When should an agent refuse to call a tool?

@@ -21,6 +21,8 @@ Name: **AI Skill Router** for consistency with the repository; Universal Model R
 
 ## Measurement
 
+User study status: not recruited or performed. For each of three consenting volunteers, ask them to explain the README, install and run the demo, change an input, explain an abstention and describe a potential integration; record elapsed time and blockers without personal information. Five-minute completion is a hypothesis, not a measured result. Record available daily aggregate views, unique visitors, full clones, stars, forks, substantive issues and external PRs by UTC date; mark unavailable fields unknown. A star/visitor ratio is not an individual conversion rate and changes do not establish causation.
+
 Baseline on 2026-11-04 from GitHub repository API: 0 stars, 0 forks, 0 open issues. Views, clones, external contributions and new-user completion: unknown; no traffic access was verified. Counts can change. Do not infer causality from a short interval.
 
 Days 1–2: ask 3 consenting developers to explain the project from the README and run the Quickstart; record completion, time and blockers. Days 3–5: fix observed blockers and record the exact revision. Days 6–7: review drafts and community rules. Days 8–14: if the owner chooses to publish, record daily available views/clones, stars, forks, substantive issues and external contributions; compare with the baseline as descriptive counts. Collect feedback without tracking individual visitors.

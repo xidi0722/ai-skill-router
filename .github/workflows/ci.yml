@@ -20,4 +20,5 @@ jobs:
       - run: python examples/python_integration.py
       - run: python examples/http_integration.py
       - run: python examples/weather_evidence_gap.py
+      - run: python examples/custom_tool.py
 

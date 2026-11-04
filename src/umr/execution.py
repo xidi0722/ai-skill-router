@@ -315,11 +315,17 @@ class OpenMeteoWeatherNextAdapter:
 
 
 class AdapterRegistry:
-    def __init__(self):
+    def __init__(self, additional_adapters: dict[str, Any] | None = None):
         self._adapters = {
             SympyEquationAdapter.adapter_id: SympyEquationAdapter(),
             OpenMeteoWeatherNextAdapter.adapter_id: OpenMeteoWeatherNextAdapter(),
         }
+        for adapter_id, adapter in (additional_adapters or {}).items():
+            if not isinstance(adapter_id, str) or not adapter_id or adapter_id in self._adapters:
+                raise ValueError("Additional adapter IDs must be nonempty and not replace built-in adapters")
+            if not callable(getattr(adapter, "execute", None)):
+                raise ValueError("Additional adapters must provide an execute method")
+            self._adapters[adapter_id] = adapter
 
     @property
     def adapter_ids(self) -> set[str]:

@@ -4,6 +4,20 @@ Repository: https://github.com/xidi0722/ai-skill-router
 Offline demo: https://github.com/xidi0722/ai-skill-router/blob/main/examples/offline_demo.py
 Releases: https://github.com/xidi0722/ai-skill-router/releases
 
+## Custom-tool iteration drafts — review before posting
+
+**Technical article:** What happens when an agent still relies on evidence for an old tool revision? Run `python -m pip install -e .` and `python examples/custom_tool.py`. Two local linear solvers are explicitly registered; their tiny fixture datasets differ, so required comparison abstains. Changing a revision and revoking approval also abstain. Approval is an unsigned local fixture, not proof of accuracy. What evidence should your application require before it executes a tool?
+
+**Show HN draft:** Show HN: AI Skill Router — test version-bound tool evidence and abstention. Try the offline commands above. The comparison uses tiny fixtures, and actual model ranking quality remains unverified. Which failure reason would make this usable in your agent? The owner must independently satisfy the personal-work and discussion requirements in [Show HN guidelines](https://news.ycombinator.com/showhn.html).
+
+**Agent developer draft:** Can your agent detect that a tool's evidence refers to an old revision? Try `python examples/custom_tool.py` after installation. Explicitly registered local adapters run with application permissions; the fixture ledger is unsigned. Which registry contract would fit your stack?
+
+**Scientific evaluation draft:** Two local solvers, two different small fixture datasets, no claim of comparable accuracy: `python examples/custom_tool.py`. The router abstains on dataset mismatch and stale or revoked approvals. What metadata is missing for your evaluations?
+
+**Release notes draft:** Add explicit trusted Python adapter injection and an offline custom-tool example showing eligibility, incompatible evidence, revision change and revocation. The ledger is unsigned, adapters are not sandboxed, and fixture counts are not real model benchmarks. Installation and examples are above.
+
+Rechecked 2026-11-04: [DEV conduct](https://dev.to/code-of-conduct) asks authors to cite sources and disclose AI assistance; consult its AI guidelines before posting. Subreddit-specific rules remain unknown. No community message was sent.
+
 Draft update: `python examples/python_integration.py` shows success, abstention and execution failure; `python examples/http_integration.py` sends a localhost request; `python examples/weather_evidence_gap.py` demonstrates abstention for a real deployment with no approved comparable evidence. Synthetic comparison scores remain fixtures. Show HN and DEV rules were rechecked on 2026-11-04; the owner must review authorship and applicable AI disclosure before posting. Subreddit-specific rules remain unverified. No post has been sent.
 
 ## Technical article (English)

@@ -2,6 +2,8 @@
 
 查核日期：2026-11-04。此文件區分目前程式碼與建議中的後續工作。
 
+自訂工具階段：Python 應用可明確注入 `AdapterRegistry(additional_adapters=...)` 到 `RouterService`；不能覆蓋內建 adapter，且自訂程式在應用程式權限下執行，沒有沙箱。`examples/custom_tool.py` 示範 Fraction 和 SymPy、不同的合成資料、獨立帳本、版本變動與撤銷。Windows 11、Python 3.12.14 的新環境執行回歸測試 48 passed；資料集、示範版本與核准人均非真實 benchmark。自訂 adapter 不會從遠端 metadata 自動載入，CLI/HTTP 服務也不會自動載入。
+
 本輪新增 Python 和 localhost HTTP 整合範例、實際路由結果驅動的合成候選比較表，以及 WeatherNext 部署缺少已核准降雨證據時的離線 abstain 範例；後者沒有匯入或比較 WeatherBench 分數。Windows 11／Python 3.12.14 新環境執行 46 個測試與四個範例成功，HTTP 需允許 localhost。真實模型排名品質仍未驗證。
 
 前一階段查核時此目錄尚未初始化 Git；後續已建立 repository 並連接 `origin`。2026-11-04 本階段開始時，本機 `main` 和遠端為 `fe4c3e0`，工作目錄乾淨，未找到 `AGENTS.md`。

@@ -4,6 +4,26 @@
 
 **一個以證據為依據、可稽核路由決策並能拒答的科學工具早期原型。** [English](README.md)
 
+Agent 可能呼叫成功，但支持選擇該工具的 benchmark 已屬於舊版。AI Skill Router 可協助應用程式檢查已註冊工具的資格和版本綁定證據；要求比較卻無法成立時會 abstain。
+
+```sh
+python -m pip install -e .
+python examples/custom_tool.py
+```
+
+離線範例執行兩種線性方程求解實作；微型測試資料和核准均為教學 fixture，不代表真實 benchmark。實際執行會顯示 `success: selected`、`incomparable: abstain`、`revision_changed: abstain` 與 `revoked: abstain`，也展示錯誤輸入及執行失敗。
+
+```python
+from umr.service import RouterService
+result = RouterService('profiles').handle({
+    'task_id': 'math.solve_equation',
+    'inputs': {'equation': 'x**2 - 4 = 0'}, 'execute': True,
+})
+print(result['decision']['status'])  # 符合資格時為 selected
+```
+
+適合需要以明確政策檢查已註冊工具的 Python／Agent 開發者；不適合無人監督地執行任意公開模型。呼叫者須提供結構化任務，系統尚未解析自然語言。這裡的 Skill 指工具能力描述，尚不支援自動匯入、搜尋或執行一般 Agent Skills。[接入可信任的本機工具](docs/custom-tools.zh-TW.md)。
+
 Agent 呼叫工具前，可先檢查它是否可執行、評測證據是否適用，以及證據是否對應目前的資源版本。本專案提供這些檢查及拒答原因。
 
 可用於呼叫已註冊科學工具前檢查資格與版本綁定證據；服務可呼叫但證據屬於舊版時，要求可比較核准證據的政策可選擇 abstain。目前尚不適合無人監督地探索並執行任意公開模型。

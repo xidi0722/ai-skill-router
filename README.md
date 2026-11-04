@@ -6,6 +6,26 @@
 
 [繁體中文](README.zh-TW.md) · [Contributing](CONTRIBUTING.md) · [Report an issue](https://github.com/xidi0722/ai-skill-router/issues)
 
+An agent can call a tool even when its benchmark describes an older version. AI Skill Router helps an application check eligibility and approved version-bound evidence before execution, and abstain when a required comparison cannot be established.
+
+```sh
+python -m pip install -e .
+python examples/custom_tool.py
+```
+
+The offline example runs two local linear-equation implementations. Its tiny test datasets and approvals are **illustrative fixtures**, not benchmark claims. A real run reports `success: selected`, `incomparable: abstain`, `revision_changed: abstain`, and `revoked: abstain`; it also shows invalid input, unregistered adapter and execution failure.
+
+```python
+from umr.service import RouterService
+result = RouterService('profiles').handle({
+    'task_id': 'math.solve_equation',
+    'inputs': {'equation': 'x**2 - 4 = 0'}, 'execute': True,
+})
+print(result['decision']['status'])  # selected when eligible
+```
+
+Suitable for Python/agent developers evaluating registered tools under explicit policies; not suitable for unattended execution of arbitrary public models. The caller supplies a structured task request: natural-language parsing is not implemented. “Skill” here means a described tool capability; automatic import, search or execution of common Agent Skills is not implemented. [Connect your own trusted local tool](docs/custom-tools.md).
+
 An agent needs more than a tool name: is the tool executable, does its evidence apply to this task, and does that evidence still match the artifact version? This prototype checks those conditions and can abstain when a required comparison cannot be made.
 
 Use it to inspect eligibility and version-bound evidence before calling a registered scientific tool. A reachable deployment may have evidence for an older revision; requiring comparable approved evidence can make the router abstain. It is not yet suitable for unattended discovery and execution of arbitrary public models.

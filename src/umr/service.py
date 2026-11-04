@@ -25,11 +25,12 @@ class RouterService:
         approved_evaluation_digests: set[str] | None = None,
         revoked_evaluation_digests: set[str] | None = None,
         approval_ledger_path: str | Path | None = None,
+        adapter_registry: AdapterRegistry | None = None,
     ):
         self.profile_directory = Path(profile_directory)
         self.local_connector = LocalCatalogConnector(self.profile_directory)
         self.hf_connector = HuggingFaceHubConnector()
-        self.adapters = AdapterRegistry()
+        self.adapters = adapter_registry if adapter_registry is not None else AdapterRegistry()
         self.trusted_evaluation_digests = trusted_evaluation_digests or set()
         self.approved_evaluation_digests = approved_evaluation_digests or set()
         self.revoked_evaluation_digests = revoked_evaluation_digests or set()

@@ -1,5 +1,7 @@
 # AI Skill Router
 
+[![Offline checks](https://github.com/xidi0722/ai-skill-router/actions/workflows/ci.yml/badge.svg)](https://github.com/xidi0722/ai-skill-router/actions/workflows/ci.yml)
+
 **An early evidence-aware routing prototype for scientific tools, with auditable decisions and abstention.**
 
 [繁體中文](README.zh-TW.md) · [Contributing](CONTRIBUTING.md) · [Report an issue](https://github.com/xidi0722/ai-skill-router/issues)

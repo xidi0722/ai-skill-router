@@ -1,5 +1,7 @@
 # AI Skill Router
 
+[![離線檢查](https://github.com/xidi0722/ai-skill-router/actions/workflows/ci.yml/badge.svg)](https://github.com/xidi0722/ai-skill-router/actions/workflows/ci.yml)
+
 **一個以證據為依據、可稽核路由決策並能拒答的科學工具早期原型。** [English](README.md)
 
 Agent 呼叫工具前，可先檢查它是否可執行、評測證據是否適用，以及證據是否對應目前的資源版本。本專案提供這些檢查及拒答原因。

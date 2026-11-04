@@ -1,0 +1,12 @@
+{
+  "task_id": "weather.precipitation_forecast",
+  "inputs": {
+    "latitude": 24.1477,
+    "longitude": 120.6736,
+    "target_date": "2026-11-05",
+    "timezone": "Asia/Taipei"
+  },
+  "constraints": {
+    "require_independent_evidence": false
+  }
+}

@@ -1,0 +1,3740 @@
+{
+  "cases": [
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "weather forecast day five",
+          "fixture_downloads": 3426,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "model global weather five",
+          "fixture_downloads": 3737,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-01",
+      "expected_profile_id": "candidate-a",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-a",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-a best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "lower",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "scientific day global model",
+          "fixture_downloads": 1207,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.9
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "scientific weather z500 global",
+          "fixture_downloads": 2626,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.7
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-02",
+      "expected_profile_id": "candidate-a",
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": "candidate-a",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "hand-authored fixture declares candidate-a best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "higher",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "day global weather forecast",
+          "fixture_downloads": 4771,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "scientific model five day",
+          "fixture_downloads": 8255,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-03",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "tie makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "tie",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "scientific forecast z500 day",
+          "fixture_downloads": 8713,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v2",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "forecast five z500 global",
+          "fixture_downloads": 3459,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-04",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "dataset-mismatch makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "dataset-mismatch",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": false,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "scientific five global model",
+          "fixture_downloads": 5170,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "model day z500 weather",
+          "fixture_downloads": 8092,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-05",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "unapproved makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "unapproved",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "global five weather day",
+          "fixture_downloads": 8518,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-old"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "five model weather day",
+          "fixture_downloads": 3647,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-06",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "stale-artifact makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "stale-artifact",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "z500 five global forecast",
+          "fixture_downloads": 655,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "global model forecast five",
+          "fixture_downloads": 2297,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 11.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-07",
+      "expected_profile_id": "candidate-b",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-b",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-b best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "lower",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "forecast global weather scientific",
+          "fixture_downloads": 1040,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.7
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "day model scientific z500",
+          "fixture_downloads": 6777,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.9
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-08",
+      "expected_profile_id": "candidate-b",
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": "candidate-b",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-b best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "higher",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "five weather z500 day",
+          "fixture_downloads": 1671,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "z500 weather five model",
+          "fixture_downloads": 9747,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-09",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "tie makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "tie",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "five model global day",
+          "fixture_downloads": 1541,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v2",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "five scientific weather z500",
+          "fixture_downloads": 3301,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 11.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-10",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "dataset-mismatch makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "dataset-mismatch",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": false,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "day weather forecast scientific",
+          "fixture_downloads": 8877,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "global weather scientific z500",
+          "fixture_downloads": 8525,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 11.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-11",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "unapproved makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "unapproved",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "global day z500 scientific",
+          "fixture_downloads": 4960,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-old"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "five z500 global model",
+          "fixture_downloads": 4755,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 11.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-12",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "stale-artifact makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "stale-artifact",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "global forecast five day",
+          "fixture_downloads": 85,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 12.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "scientific z500 weather global",
+          "fixture_downloads": 4314,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-13",
+      "expected_profile_id": "candidate-a",
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": "candidate-a",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-a best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "lower",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "five z500 forecast day",
+          "fixture_downloads": 6506,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.9
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "five z500 forecast model",
+          "fixture_downloads": 421,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.7
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-14",
+      "expected_profile_id": "candidate-a",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-a",
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-a best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "higher",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "weather scientific z500 five",
+          "fixture_downloads": 7542,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "global forecast model weather",
+          "fixture_downloads": 149,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-15",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "tie makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "tie",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "day global z500 forecast",
+          "fixture_downloads": 3116,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 12.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v2",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "forecast five weather z500",
+          "fixture_downloads": 7410,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-16",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "dataset-mismatch makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "dataset-mismatch",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": false,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "forecast scientific day weather",
+          "fixture_downloads": 7863,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 12.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "weather z500 day model",
+          "fixture_downloads": 1534,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-17",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "unapproved makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "unapproved",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "z500 scientific five model",
+          "fixture_downloads": 9337,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 12.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-old"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "global day scientific z500",
+          "fixture_downloads": 4041,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-18",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "stale-artifact makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "stale-artifact",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "forecast scientific model weather",
+          "fixture_downloads": 458,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 16.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "weather z500 global five",
+          "fixture_downloads": 171,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-19",
+      "expected_profile_id": "candidate-b",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-b",
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "hand-authored fixture declares candidate-b best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "lower",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "forecast model scientific five",
+          "fixture_downloads": 281,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.7
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "global scientific z500 weather",
+          "fixture_downloads": 7401,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.9
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-20",
+      "expected_profile_id": "candidate-b",
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": "candidate-b",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "hand-authored fixture declares candidate-b best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "higher",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "global five forecast day",
+          "fixture_downloads": 7634,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "day scientific z500 forecast",
+          "fixture_downloads": 1180,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-21",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "tie makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "tie",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "global weather day forecast",
+          "fixture_downloads": 7621,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 16.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v2",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "weather scientific day model",
+          "fixture_downloads": 4056,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-22",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "dataset-mismatch makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "dataset-mismatch",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": false,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "five z500 model global",
+          "fixture_downloads": 562,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 16.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "day global model z500",
+          "fixture_downloads": 866,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-23",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "unapproved makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "unapproved",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "model global five z500",
+          "fixture_downloads": 6726,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 16.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-old"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "five weather model global",
+          "fixture_downloads": 7932,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 13.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-24",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "stale-artifact makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "stale-artifact",
+      "split": "development"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "global weather z500 forecast",
+          "fixture_downloads": 2520,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "five day scientific z500",
+          "fixture_downloads": 2085,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 17.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-25",
+      "expected_profile_id": "candidate-a",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-a",
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-a best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "lower",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "day z500 weather global",
+          "fixture_downloads": 4255,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.9
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "scientific day z500 forecast",
+          "fixture_downloads": 1176,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.7
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-26",
+      "expected_profile_id": "candidate-a",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-a",
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-a best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "higher",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "weather five forecast day",
+          "fixture_downloads": 8812,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "forecast model five weather",
+          "fixture_downloads": 2647,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-27",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "tie makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "tie",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "five weather model scientific",
+          "fixture_downloads": 2293,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v2",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "global five day scientific",
+          "fixture_downloads": 2631,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 17.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-28",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "dataset-mismatch makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "dataset-mismatch",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": false,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "model scientific forecast weather",
+          "fixture_downloads": 4451,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "global forecast z500 model",
+          "fixture_downloads": 2873,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 17.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-29",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "unapproved makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "unapproved",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "global model scientific z500",
+          "fixture_downloads": 7439,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 14.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-old"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "z500 model day global",
+          "fixture_downloads": 8417,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 17.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-30",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "stale-artifact makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "stale-artifact",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "reproduced",
+          "fixture_description": "scientific day z500 global",
+          "fixture_downloads": 9432,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 18.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "forecast z500 weather scientific",
+          "fixture_downloads": 7272,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-31",
+      "expected_profile_id": "candidate-b",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-b",
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "hand-authored fixture declares candidate-b best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "lower",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "weather five z500 forecast",
+          "fixture_downloads": 5331,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.7
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "forecast weather scientific z500",
+          "fixture_downloads": 9457,
+          "metric": {
+            "direction": "higher",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 0.9
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-32",
+      "expected_profile_id": "candidate-b",
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": "candidate-b",
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "hand-authored fixture declares candidate-b best under the stated comparable metric",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "higher",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "day global forecast weather",
+          "fixture_downloads": 7211,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "weather model forecast global",
+          "fixture_downloads": 9645,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 10.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-33",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "tie makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "tie",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "five forecast weather z500",
+          "fixture_downloads": 2093,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 18.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v2",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "weather forecast model scientific",
+          "fixture_downloads": 6384,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-34",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-a"
+      },
+      "rationale": "dataset-mismatch makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "dataset-mismatch",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": false,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "five global model day",
+          "fixture_downloads": 9642,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 18.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "z500 five day scientific",
+          "fixture_downloads": 1187,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-35",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-b",
+        "numeric_evidence": null,
+        "popularity": "candidate-a",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "unapproved makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "unapproved",
+      "split": "holdout"
+    },
+    {
+      "candidate_ids": [
+        "candidate-a",
+        "candidate-b"
+      ],
+      "candidates": [
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-a",
+            "revision": "rev-1"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "independent",
+          "fixture_description": "z500 global model forecast",
+          "fixture_downloads": 1859,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 18.0
+          },
+          "profile_id": "candidate-a",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        },
+        {
+          "applicability": {
+            "horizon_days": 5,
+            "region": "global",
+            "resolution": "240x121"
+          },
+          "approved": true,
+          "artifact": {
+            "digest": null,
+            "id": "candidate-b",
+            "revision": "rev-old"
+          },
+          "dataset": {
+            "config_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "id": "weatherbench2",
+            "revision": "fixture-v1",
+            "split": "test-2020"
+          },
+          "evidence_level": "publisher_claim",
+          "fixture_description": "global forecast day z500",
+          "fixture_downloads": 5282,
+          "metric": {
+            "direction": "lower",
+            "id": "weather.z500.rmse.day5",
+            "sample_count": 100,
+            "unit": "m2/s2",
+            "value": 15.0
+          },
+          "profile_id": "candidate-b",
+          "source": {
+            "evaluator": "synthetic-fixture-author",
+            "url": "https://example.org/synthetic-ranking-fixture"
+          }
+        }
+      ],
+      "case_id": "rank-36",
+      "expected_profile_id": null,
+      "predictions": {
+        "evidence_tier": "candidate-a",
+        "numeric_evidence": null,
+        "popularity": "candidate-b",
+        "text_relevance": "candidate-b"
+      },
+      "rationale": "stale-artifact makes metric evidence insufficient; abstain",
+      "request": {
+        "constraints": {
+          "lead_days": 5,
+          "metric_id": "weather.z500.rmse.day5"
+        },
+        "inputs": {
+          "region": "global",
+          "variable": "Z500"
+        },
+        "task_id": "weather.global_field_forecast"
+      },
+      "scenario": "stale-artifact",
+      "split": "holdout"
+    }
+  ],
+  "comparability_note": "All strategies receive identical two-candidate pools treated as already eligible for ranking. The fixture does not exercise real capability/deployment eligibility or adapter execution; this measures ranking logic only.",
+  "metric_definitions": {
+    "abstain_precision": "correct abstentions / all predicted abstentions; N/A if no abstentions",
+    "abstain_recall": "correct abstentions / all abstain-required cases; N/A if none",
+    "coverage_on_qualified": "qualified cases with a selection / all qualified cases",
+    "top1_hit_rate": "unique labelled best candidate selected / qualified cases; abstention is a miss",
+    "wrong_route_rate": "qualified cases with abstention or wrong selection plus abstain-required cases with any selection / all cases"
+  },
+  "metrics": {
+    "evidence_tier": {
+      "all": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 36,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 24,
+        "predicted_abstain_count": 0,
+        "qualified_count": 12,
+        "qualified_selected_count": 12,
+        "top1_hit_rate": 0.5,
+        "top1_hits": 6,
+        "wrong_route_count": 30,
+        "wrong_route_rate": 0.8333333333333334
+      },
+      "development": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 24,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 16,
+        "predicted_abstain_count": 0,
+        "qualified_count": 8,
+        "qualified_selected_count": 8,
+        "top1_hit_rate": 0.5,
+        "top1_hits": 4,
+        "wrong_route_count": 20,
+        "wrong_route_rate": 0.8333333333333334
+      },
+      "holdout": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 12,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 8,
+        "predicted_abstain_count": 0,
+        "qualified_count": 4,
+        "qualified_selected_count": 4,
+        "top1_hit_rate": 0.5,
+        "top1_hits": 2,
+        "wrong_route_count": 10,
+        "wrong_route_rate": 0.8333333333333334
+      }
+    },
+    "numeric_evidence": {
+      "all": {
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "case_count": 36,
+        "correct_abstain_count": 24,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 24,
+        "predicted_abstain_count": 24,
+        "qualified_count": 12,
+        "qualified_selected_count": 12,
+        "top1_hit_rate": 1.0,
+        "top1_hits": 12,
+        "wrong_route_count": 0,
+        "wrong_route_rate": 0.0
+      },
+      "development": {
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "case_count": 24,
+        "correct_abstain_count": 16,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 16,
+        "predicted_abstain_count": 16,
+        "qualified_count": 8,
+        "qualified_selected_count": 8,
+        "top1_hit_rate": 1.0,
+        "top1_hits": 8,
+        "wrong_route_count": 0,
+        "wrong_route_rate": 0.0
+      },
+      "holdout": {
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "case_count": 12,
+        "correct_abstain_count": 8,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 8,
+        "predicted_abstain_count": 8,
+        "qualified_count": 4,
+        "qualified_selected_count": 4,
+        "top1_hit_rate": 1.0,
+        "top1_hits": 4,
+        "wrong_route_count": 0,
+        "wrong_route_rate": 0.0
+      }
+    },
+    "popularity": {
+      "all": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 36,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 24,
+        "predicted_abstain_count": 0,
+        "qualified_count": 12,
+        "qualified_selected_count": 12,
+        "top1_hit_rate": 0.5833333333333334,
+        "top1_hits": 7,
+        "wrong_route_count": 29,
+        "wrong_route_rate": 0.8055555555555556
+      },
+      "development": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 24,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 16,
+        "predicted_abstain_count": 0,
+        "qualified_count": 8,
+        "qualified_selected_count": 8,
+        "top1_hit_rate": 0.5,
+        "top1_hits": 4,
+        "wrong_route_count": 20,
+        "wrong_route_rate": 0.8333333333333334
+      },
+      "holdout": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 12,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 8,
+        "predicted_abstain_count": 0,
+        "qualified_count": 4,
+        "qualified_selected_count": 4,
+        "top1_hit_rate": 0.75,
+        "top1_hits": 3,
+        "wrong_route_count": 9,
+        "wrong_route_rate": 0.75
+      }
+    },
+    "text_relevance": {
+      "all": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 36,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 24,
+        "predicted_abstain_count": 0,
+        "qualified_count": 12,
+        "qualified_selected_count": 12,
+        "top1_hit_rate": 0.6666666666666666,
+        "top1_hits": 8,
+        "wrong_route_count": 28,
+        "wrong_route_rate": 0.7777777777777778
+      },
+      "development": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 24,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 16,
+        "predicted_abstain_count": 0,
+        "qualified_count": 8,
+        "qualified_selected_count": 8,
+        "top1_hit_rate": 0.625,
+        "top1_hits": 5,
+        "wrong_route_count": 19,
+        "wrong_route_rate": 0.7916666666666666
+      },
+      "holdout": {
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "case_count": 12,
+        "correct_abstain_count": 0,
+        "coverage_on_qualified": 1.0,
+        "must_abstain_count": 8,
+        "predicted_abstain_count": 0,
+        "qualified_count": 4,
+        "qualified_selected_count": 4,
+        "top1_hit_rate": 0.75,
+        "top1_hits": 3,
+        "wrong_route_count": 9,
+        "wrong_route_rate": 0.75
+      }
+    }
+  },
+  "scenario_counts": {
+    "dataset-mismatch": 6,
+    "higher": 6,
+    "lower": 6,
+    "stale-artifact": 6,
+    "tie": 6,
+    "unapproved": 6
+  },
+  "source_note": "All 36 ranking cases and their labels are artificial fixtures. Public WeatherBench 2 score listings are audited separately and are not treated as executable deployment evidence.",
+  "title": "Evidence routing ranking evaluation"
+}

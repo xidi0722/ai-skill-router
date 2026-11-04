@@ -1,0 +1,3953 @@
+{
+  "title": "Universal Model Router offline policy evaluation",
+  "dataset": {
+    "case_count": 50,
+    "development_count": 40,
+    "holdout_count": 10,
+    "source_note": "All candidates and evaluation labels are synthetic policy fixtures derived from checked-in profiles. They are not real model performance evidence.",
+    "labeling_rules": {
+      "qualified": "A case is qualified only when it has at least one candidate pre-labelled acceptable; any selected candidate in that set is a hit, and abstention is a miss.",
+      "must_abstain": "A case must abstain when its task/policy fixture has no admissible candidate. Any selected candidate is a wrong route.",
+      "multiple_acceptable_candidates": "Positive cases intentionally accept multiple synthetic candidates; labels do not encode a real quality ordering among them.",
+      "splits": "Forty hand-authored development cases cover the policy matrix. Ten holdout cases use altered input variants and reserved negative-case variants; both splits remain small synthetic fixtures."
+    },
+    "metric_definitions": {
+      "top1_hit_rate_on_qualified": "Qualified cases selecting any profile in acceptable_profile_ids divided by all qualified cases; abstention is a miss.",
+      "wrong_route_rate_all_cases": "Qualified cases that abstain or select outside acceptable_profile_ids plus must_abstain cases that select any profile, divided by all cases.",
+      "abstain_precision": "Correct abstentions on must_abstain cases divided by all predicted abstentions; N/A when no strategy output abstains.",
+      "abstain_recall": "Correct abstentions on must_abstain cases divided by all must_abstain cases; N/A when there are no must-abstain cases.",
+      "coverage_on_qualified": "Qualified cases with any selected profile divided by all qualified cases."
+    },
+    "methods": {
+      "popularity_ungated": "Select highest fixture downloads; ignores eligibility and execution status.",
+      "text_relevance_ungated": "Select maximum token overlap between query and candidate metadata; ignores eligibility and execution status.",
+      "popularity_shared_eligibility": "Same hard eligibility decision as the router, then select highest downloads from eligible candidates.",
+      "text_relevance_shared_eligibility": "Same hard eligibility decision as the router, then select maximum token overlap from eligible candidates.",
+      "evidence_router": "Current router with registered adapters and out-of-band approved fixture evaluation digests.",
+      "comparison_note": "The ungated rows measure eligibility-gate value. The shared-eligibility rows isolate ranking. These synthetic cases cannot establish live model quality."
+    }
+  },
+  "metrics": {
+    "popularity_ungated": {
+      "all": {
+        "case_count": 50,
+        "qualified_count": 25,
+        "must_abstain_count": 25,
+        "top1_hit_rate_on_qualified": 0.0,
+        "wrong_route_rate_all_cases": 1.0,
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 0
+      },
+      "development": {
+        "case_count": 40,
+        "qualified_count": 20,
+        "must_abstain_count": 20,
+        "top1_hit_rate_on_qualified": 0.0,
+        "wrong_route_rate_all_cases": 1.0,
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 0
+      },
+      "holdout": {
+        "case_count": 10,
+        "qualified_count": 5,
+        "must_abstain_count": 5,
+        "top1_hit_rate_on_qualified": 0.0,
+        "wrong_route_rate_all_cases": 1.0,
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 0
+      }
+    },
+    "text_relevance_ungated": {
+      "all": {
+        "case_count": 50,
+        "qualified_count": 25,
+        "must_abstain_count": 25,
+        "top1_hit_rate_on_qualified": 0.0,
+        "wrong_route_rate_all_cases": 1.0,
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 0
+      },
+      "development": {
+        "case_count": 40,
+        "qualified_count": 20,
+        "must_abstain_count": 20,
+        "top1_hit_rate_on_qualified": 0.0,
+        "wrong_route_rate_all_cases": 1.0,
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 0
+      },
+      "holdout": {
+        "case_count": 10,
+        "qualified_count": 5,
+        "must_abstain_count": 5,
+        "top1_hit_rate_on_qualified": 0.0,
+        "wrong_route_rate_all_cases": 1.0,
+        "abstain_precision": null,
+        "abstain_recall": 0.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 0
+      }
+    },
+    "popularity_shared_eligibility": {
+      "all": {
+        "case_count": 50,
+        "qualified_count": 25,
+        "must_abstain_count": 25,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 25
+      },
+      "development": {
+        "case_count": 40,
+        "qualified_count": 20,
+        "must_abstain_count": 20,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 20
+      },
+      "holdout": {
+        "case_count": 10,
+        "qualified_count": 5,
+        "must_abstain_count": 5,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 5
+      }
+    },
+    "text_relevance_shared_eligibility": {
+      "all": {
+        "case_count": 50,
+        "qualified_count": 25,
+        "must_abstain_count": 25,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 25
+      },
+      "development": {
+        "case_count": 40,
+        "qualified_count": 20,
+        "must_abstain_count": 20,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 20
+      },
+      "holdout": {
+        "case_count": 10,
+        "qualified_count": 5,
+        "must_abstain_count": 5,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 5
+      }
+    },
+    "evidence_router": {
+      "all": {
+        "case_count": 50,
+        "qualified_count": 25,
+        "must_abstain_count": 25,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 25
+      },
+      "development": {
+        "case_count": 40,
+        "qualified_count": 20,
+        "must_abstain_count": 20,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 20
+      },
+      "holdout": {
+        "case_count": 10,
+        "qualified_count": 5,
+        "must_abstain_count": 5,
+        "top1_hit_rate_on_qualified": 1.0,
+        "wrong_route_rate_all_cases": 0.0,
+        "abstain_precision": 1.0,
+        "abstain_recall": 1.0,
+        "coverage_on_qualified": 1.0,
+        "abstained_count": 5
+      }
+    }
+  },
+  "failure_type_summary": {
+    "cost-over-budget": {
+      "case_count": 1,
+      "router_abstained_count": 1,
+      "popularity_ungated_wrong_count": 1,
+      "text_relevance_ungated_wrong_count": 1
+    },
+    "data-license-unknown": {
+      "case_count": 4,
+      "router_abstained_count": 4,
+      "popularity_ungated_wrong_count": 4,
+      "text_relevance_ungated_wrong_count": 4
+    },
+    "horizon-out-of-range": {
+      "case_count": 4,
+      "router_abstained_count": 4,
+      "popularity_ungated_wrong_count": 4,
+      "text_relevance_ungated_wrong_count": 4
+    },
+    "independent-evidence-missing": {
+      "case_count": 4,
+      "router_abstained_count": 4,
+      "popularity_ungated_wrong_count": 4,
+      "text_relevance_ungated_wrong_count": 4
+    },
+    "invalid-input-schema": {
+      "case_count": 1,
+      "router_abstained_count": 1,
+      "popularity_ungated_wrong_count": 1,
+      "text_relevance_ungated_wrong_count": 1
+    },
+    "missing-input": {
+      "case_count": 4,
+      "router_abstained_count": 4,
+      "popularity_ungated_wrong_count": 4,
+      "text_relevance_ungated_wrong_count": 4
+    },
+    "region-mismatch": {
+      "case_count": 1,
+      "router_abstained_count": 1,
+      "popularity_ungated_wrong_count": 1,
+      "text_relevance_ungated_wrong_count": 1
+    },
+    "runtime-offline": {
+      "case_count": 1,
+      "router_abstained_count": 1,
+      "popularity_ungated_wrong_count": 1,
+      "text_relevance_ungated_wrong_count": 1
+    },
+    "unregistered-adapter": {
+      "case_count": 1,
+      "router_abstained_count": 1,
+      "popularity_ungated_wrong_count": 1,
+      "text_relevance_ungated_wrong_count": 1
+    },
+    "unsupported-task": {
+      "case_count": 4,
+      "router_abstained_count": 4,
+      "popularity_ungated_wrong_count": 4,
+      "text_relevance_ungated_wrong_count": 4
+    }
+  },
+  "representative_failures": {
+    "popularity_ungated": [
+      {
+        "case_id": "positive-01",
+        "split": "development",
+        "query_text": "solve polynomial equation algebra symbolic math",
+        "request": {
+          "task_id": "math.solve_equation",
+          "inputs": {
+            "equation": "x**2-4=0"
+          },
+          "constraints": {
+            "region": "TW"
+          }
+        },
+        "candidate_ids": [
+          "math.primary",
+          "math.audited",
+          "math.metadata",
+          "math.regional"
+        ],
+        "acceptable_profile_ids": [
+          "math.primary",
+          "math.audited",
+          "math.regional"
+        ],
+        "must_abstain": false,
+        "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+        "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+        "scenario": "eligible",
+        "candidates": [
+          {
+            "profile_id": "math.primary",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 100,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.audited",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 20,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.metadata",
+            "kind": "tool",
+            "execution_available": false,
+            "downloads_fixture": 1000000,
+            "description": "Solve polynomial equation algebra symbolically with a math model"
+          },
+          {
+            "profile_id": "math.regional",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 50,
+            "description": "Curated candidate fixture."
+          }
+        ],
+        "predictions": {
+          "popularity_ungated": "math.metadata",
+          "text_relevance_ungated": "math.metadata",
+          "popularity_shared_eligibility": "math.primary",
+          "text_relevance_shared_eligibility": "math.regional",
+          "evidence_router": "math.audited"
+        }
+      },
+      {
+        "case_id": "positive-02",
+        "split": "development",
+        "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+        "request": {
+          "task_id": "weather.precipitation_forecast",
+          "inputs": {
+            "latitude": 24.1477,
+            "longitude": 120.6736,
+            "target_date": "2026-11-05",
+            "timezone": "Asia/Taipei"
+          },
+          "constraints": {
+            "region": "TW",
+            "horizon_days": 2
+          }
+        },
+        "candidate_ids": [
+          "weather.primary",
+          "weather.audited",
+          "weather.metadata",
+          "weather.regional"
+        ],
+        "acceptable_profile_ids": [
+          "weather.primary",
+          "weather.audited",
+          "weather.regional"
+        ],
+        "must_abstain": false,
+        "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+        "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+        "scenario": "eligible",
+        "candidates": [
+          {
+            "profile_id": "weather.primary",
+            "kind": "application",
+            "execution_available": true,
+            "downloads_fixture": 100,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "weather.audited",
+            "kind": "application",
+            "execution_available": true,
+            "downloads_fixture": 20,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "weather.metadata",
+            "kind": "application",
+            "execution_available": false,
+            "downloads_fixture": 1000000,
+            "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+          },
+          {
+            "profile_id": "weather.regional",
+            "kind": "application",
+            "execution_available": true,
+            "downloads_fixture": 50,
+            "description": "Curated candidate fixture."
+          }
+        ],
+        "predictions": {
+          "popularity_ungated": "weather.metadata",
+          "text_relevance_ungated": "weather.metadata",
+          "popularity_shared_eligibility": "weather.primary",
+          "text_relevance_shared_eligibility": "weather.regional",
+          "evidence_router": "weather.audited"
+        }
+      },
+      {
+        "case_id": "positive-03",
+        "split": "development",
+        "query_text": "solve polynomial equation algebra symbolic math",
+        "request": {
+          "task_id": "math.solve_equation",
+          "inputs": {
+            "equation": "2*x=10"
+          },
+          "constraints": {
+            "region": "TW"
+          }
+        },
+        "candidate_ids": [
+          "math.primary",
+          "math.audited",
+          "math.metadata",
+          "math.regional"
+        ],
+        "acceptable_profile_ids": [
+          "math.primary",
+          "math.audited",
+          "math.regional"
+        ],
+        "must_abstain": false,
+        "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+        "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+        "scenario": "eligible",
+        "candidates": [
+          {
+            "profile_id": "math.primary",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 100,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.audited",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 20,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.metadata",
+            "kind": "tool",
+            "execution_available": false,
+            "downloads_fixture": 1000000,
+            "description": "Solve polynomial equation algebra symbolically with a math model"
+          },
+          {
+            "profile_id": "math.regional",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 50,
+            "description": "Curated candidate fixture."
+          }
+        ],
+        "predictions": {
+          "popularity_ungated": "math.metadata",
+          "text_relevance_ungated": "math.metadata",
+          "popularity_shared_eligibility": "math.primary",
+          "text_relevance_shared_eligibility": "math.regional",
+          "evidence_router": "math.audited"
+        }
+      }
+    ],
+    "text_relevance_ungated": [
+      {
+        "case_id": "positive-01",
+        "split": "development",
+        "query_text": "solve polynomial equation algebra symbolic math",
+        "request": {
+          "task_id": "math.solve_equation",
+          "inputs": {
+            "equation": "x**2-4=0"
+          },
+          "constraints": {
+            "region": "TW"
+          }
+        },
+        "candidate_ids": [
+          "math.primary",
+          "math.audited",
+          "math.metadata",
+          "math.regional"
+        ],
+        "acceptable_profile_ids": [
+          "math.primary",
+          "math.audited",
+          "math.regional"
+        ],
+        "must_abstain": false,
+        "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+        "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+        "scenario": "eligible",
+        "candidates": [
+          {
+            "profile_id": "math.primary",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 100,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.audited",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 20,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.metadata",
+            "kind": "tool",
+            "execution_available": false,
+            "downloads_fixture": 1000000,
+            "description": "Solve polynomial equation algebra symbolically with a math model"
+          },
+          {
+            "profile_id": "math.regional",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 50,
+            "description": "Curated candidate fixture."
+          }
+        ],
+        "predictions": {
+          "popularity_ungated": "math.metadata",
+          "text_relevance_ungated": "math.metadata",
+          "popularity_shared_eligibility": "math.primary",
+          "text_relevance_shared_eligibility": "math.regional",
+          "evidence_router": "math.audited"
+        }
+      },
+      {
+        "case_id": "positive-02",
+        "split": "development",
+        "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+        "request": {
+          "task_id": "weather.precipitation_forecast",
+          "inputs": {
+            "latitude": 24.1477,
+            "longitude": 120.6736,
+            "target_date": "2026-11-05",
+            "timezone": "Asia/Taipei"
+          },
+          "constraints": {
+            "region": "TW",
+            "horizon_days": 2
+          }
+        },
+        "candidate_ids": [
+          "weather.primary",
+          "weather.audited",
+          "weather.metadata",
+          "weather.regional"
+        ],
+        "acceptable_profile_ids": [
+          "weather.primary",
+          "weather.audited",
+          "weather.regional"
+        ],
+        "must_abstain": false,
+        "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+        "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+        "scenario": "eligible",
+        "candidates": [
+          {
+            "profile_id": "weather.primary",
+            "kind": "application",
+            "execution_available": true,
+            "downloads_fixture": 100,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "weather.audited",
+            "kind": "application",
+            "execution_available": true,
+            "downloads_fixture": 20,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "weather.metadata",
+            "kind": "application",
+            "execution_available": false,
+            "downloads_fixture": 1000000,
+            "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+          },
+          {
+            "profile_id": "weather.regional",
+            "kind": "application",
+            "execution_available": true,
+            "downloads_fixture": 50,
+            "description": "Curated candidate fixture."
+          }
+        ],
+        "predictions": {
+          "popularity_ungated": "weather.metadata",
+          "text_relevance_ungated": "weather.metadata",
+          "popularity_shared_eligibility": "weather.primary",
+          "text_relevance_shared_eligibility": "weather.regional",
+          "evidence_router": "weather.audited"
+        }
+      },
+      {
+        "case_id": "positive-03",
+        "split": "development",
+        "query_text": "solve polynomial equation algebra symbolic math",
+        "request": {
+          "task_id": "math.solve_equation",
+          "inputs": {
+            "equation": "2*x=10"
+          },
+          "constraints": {
+            "region": "TW"
+          }
+        },
+        "candidate_ids": [
+          "math.primary",
+          "math.audited",
+          "math.metadata",
+          "math.regional"
+        ],
+        "acceptable_profile_ids": [
+          "math.primary",
+          "math.audited",
+          "math.regional"
+        ],
+        "must_abstain": false,
+        "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+        "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+        "scenario": "eligible",
+        "candidates": [
+          {
+            "profile_id": "math.primary",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 100,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.audited",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 20,
+            "description": "Curated candidate fixture."
+          },
+          {
+            "profile_id": "math.metadata",
+            "kind": "tool",
+            "execution_available": false,
+            "downloads_fixture": 1000000,
+            "description": "Solve polynomial equation algebra symbolically with a math model"
+          },
+          {
+            "profile_id": "math.regional",
+            "kind": "tool",
+            "execution_available": true,
+            "downloads_fixture": 50,
+            "description": "Curated candidate fixture."
+          }
+        ],
+        "predictions": {
+          "popularity_ungated": "math.metadata",
+          "text_relevance_ungated": "math.metadata",
+          "popularity_shared_eligibility": "math.primary",
+          "text_relevance_shared_eligibility": "math.regional",
+          "evidence_router": "math.audited"
+        }
+      }
+    ],
+    "popularity_shared_eligibility": [],
+    "text_relevance_shared_eligibility": [],
+    "evidence_router": []
+  },
+  "cases": [
+    {
+      "case_id": "positive-01",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x**2-4=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-02",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-03",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "2*x=10"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-04",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 4
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-05",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x-8=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-06",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 6
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-07",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x**2-1=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-08",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 8
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-09",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x+12=15"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-10",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 10
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-11",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x**2-4=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-12",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 12
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-13",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "2*x=10"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-14",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 14
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-15",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x-8=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-16",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-17",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x**2-1=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-18",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 4
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-19",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x+12=15"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-20",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 6
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-21",
+      "split": "holdout",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x**2-4=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-22",
+      "split": "holdout",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 8
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-23",
+      "split": "holdout",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "2*x=10"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "positive-24",
+      "split": "holdout",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24.1477,
+          "longitude": 120.6736,
+          "target_date": "2026-11-05",
+          "timezone": "Asia/Taipei"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 10
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": "weather.primary",
+        "text_relevance_shared_eligibility": "weather.regional",
+        "evidence_router": "weather.audited"
+      }
+    },
+    {
+      "case_id": "positive-25",
+      "split": "holdout",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x-8=0"
+        },
+        "constraints": {
+          "region": "TW"
+        }
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [
+        "math.primary",
+        "math.audited",
+        "math.regional"
+      ],
+      "must_abstain": false,
+      "rationale": "具備本地 allowlisted adapter、輸入契約和適用條件的合成候選可執行；熱門 metadata-only 候選不合格。",
+      "fixture_origin": "人工合成 Profile，任務與 adapter 契約取自本 repo profiles；不是模型效能資料。",
+      "scenario": "eligible",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": "math.primary",
+        "text_relevance_shared_eligibility": "math.regional",
+        "evidence_router": "math.audited"
+      }
+    },
+    {
+      "case_id": "negative-1-1",
+      "split": "development",
+      "query_text": "find a science tool for an unsupported task",
+      "request": {
+        "task_id": "science.unregistered",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "任務目錄沒有候選 Capability，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "unsupported-task",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-1-2",
+      "split": "development",
+      "query_text": "find a science tool for an unsupported task",
+      "request": {
+        "task_id": "science.unregistered",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "任務目錄沒有候選 Capability，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "unsupported-task",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-1-3",
+      "split": "development",
+      "query_text": "find a science tool for an unsupported task",
+      "request": {
+        "task_id": "science.unregistered",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "任務目錄沒有候選 Capability，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "unsupported-task",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-1-4",
+      "split": "development",
+      "query_text": "find a science tool for an unsupported task",
+      "request": {
+        "task_id": "science.unregistered",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "任務目錄沒有候選 Capability，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "unsupported-task",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-2-1",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "方程輸入缺失，不能路由到求解器。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "missing-input",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-2-2",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "方程輸入缺失，不能路由到求解器。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "missing-input",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-2-3",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "方程輸入缺失，不能路由到求解器。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "missing-input",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-2-4",
+      "split": "development",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {},
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "方程輸入缺失，不能路由到求解器。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "missing-input",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-3-1",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 20
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "請求時距超出所有天氣候選的宣告範圍。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "horizon-out-of-range",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-3-2",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 20
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "請求時距超出所有天氣候選的宣告範圍。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "horizon-out-of-range",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-3-3",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 20
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "請求時距超出所有天氣候選的宣告範圍。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "horizon-out-of-range",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-3-4",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 20
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "請求時距超出所有天氣候選的宣告範圍。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "horizon-out-of-range",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-4-1",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 2,
+          "require_independent_evidence": true
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "獨立證據的 verified_by 不在信任清單，strict policy 必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "independent-evidence-missing",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-4-2",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 2,
+          "require_independent_evidence": true
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "獨立證據的 verified_by 不在信任清單，strict policy 必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "independent-evidence-missing",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-4-3",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 2,
+          "require_independent_evidence": true
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "獨立證據的 verified_by 不在信任清單，strict policy 必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "independent-evidence-missing",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-4-4",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "horizon_days": 2,
+          "require_independent_evidence": true
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "獨立證據的 verified_by 不在信任清單，strict policy 必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "independent-evidence-missing",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-5-1",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "required_license_fields": [
+            "data"
+          ],
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "天氣 Profile 未知資料授權，政策要求 data license，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "data-license-unknown",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-5-2",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "required_license_fields": [
+            "data"
+          ],
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "天氣 Profile 未知資料授權，政策要求 data license，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "data-license-unknown",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-5-3",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "required_license_fields": [
+            "data"
+          ],
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "天氣 Profile 未知資料授權，政策要求 data license，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "data-license-unknown",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "negative-5-4",
+      "split": "development",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "required_license_fields": [
+            "data"
+          ],
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "天氣 Profile 未知資料授權，政策要求 data license，必須 abstain。",
+      "fixture_origin": "人工合成 Profile 與政策反例；不代表線上服務或真實模型品質。",
+      "scenario": "data-license-unknown",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "holdout-negative-1",
+      "split": "holdout",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "US",
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "地域限制不涵蓋請求地區。",
+      "fixture_origin": "人工合成 Profile 與未用於 development 負例模板的保留政策條件。",
+      "scenario": "region-mismatch",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "holdout-negative-2",
+      "split": "holdout",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x=2"
+        },
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "所有可執行候選都標記離線。",
+      "fixture_origin": "人工合成 Profile 與未用於 development 負例模板的保留政策條件。",
+      "scenario": "runtime-offline",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "holdout-negative-3",
+      "split": "holdout",
+      "query_text": "Taiwan weather rain precipitation forecast tomorrow",
+      "request": {
+        "task_id": "weather.precipitation_forecast",
+        "inputs": {
+          "latitude": 24,
+          "longitude": 121,
+          "target_date": "2026-11-05"
+        },
+        "constraints": {
+          "region": "TW",
+          "max_cost_usd": 1,
+          "horizon_days": 2
+        }
+      },
+      "candidate_ids": [
+        "weather.primary",
+        "weather.audited",
+        "weather.metadata",
+        "weather.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "全部部署成本都超出預算。",
+      "fixture_origin": "人工合成 Profile 與未用於 development 負例模板的保留政策條件。",
+      "scenario": "cost-over-budget",
+      "candidates": [
+        {
+          "profile_id": "weather.primary",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.audited",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "weather.metadata",
+          "kind": "application",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Taiwan weather rain precipitation forecast tomorrow with a weather model"
+        },
+        {
+          "profile_id": "weather.regional",
+          "kind": "application",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "weather.metadata",
+        "text_relevance_ungated": "weather.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "holdout-negative-4",
+      "split": "holdout",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": "x=2"
+        },
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "Profile 的 adapter 未在本機註冊清單。",
+      "fixture_origin": "人工合成 Profile 與未用於 development 負例模板的保留政策條件。",
+      "scenario": "unregistered-adapter",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    },
+    {
+      "case_id": "holdout-negative-5",
+      "split": "holdout",
+      "query_text": "solve polynomial equation algebra symbolic math",
+      "request": {
+        "task_id": "math.solve_equation",
+        "inputs": {
+          "equation": 4
+        },
+        "constraints": {}
+      },
+      "candidate_ids": [
+        "math.primary",
+        "math.audited",
+        "math.metadata",
+        "math.regional"
+      ],
+      "acceptable_profile_ids": [],
+      "must_abstain": true,
+      "rationale": "輸入值不符合 Capability JSON Schema。",
+      "fixture_origin": "人工合成 Profile 與未用於 development 負例模板的保留政策條件。",
+      "scenario": "invalid-input-schema",
+      "candidates": [
+        {
+          "profile_id": "math.primary",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 100,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.audited",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 20,
+          "description": "Curated candidate fixture."
+        },
+        {
+          "profile_id": "math.metadata",
+          "kind": "tool",
+          "execution_available": false,
+          "downloads_fixture": 1000000,
+          "description": "Solve polynomial equation algebra symbolically with a math model"
+        },
+        {
+          "profile_id": "math.regional",
+          "kind": "tool",
+          "execution_available": true,
+          "downloads_fixture": 50,
+          "description": "Curated candidate fixture."
+        }
+      ],
+      "predictions": {
+        "popularity_ungated": "math.metadata",
+        "text_relevance_ungated": "math.metadata",
+        "popularity_shared_eligibility": null,
+        "text_relevance_shared_eligibility": null,
+        "evidence_router": null
+      }
+    }
+  ]
+}

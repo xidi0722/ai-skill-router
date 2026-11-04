@@ -1,0 +1,7 @@
+{
+  "task_id": "math.solve_equation",
+  "inputs": {
+    "equation": "x**2 - 4 = 0"
+  },
+  "constraints": {}
+}

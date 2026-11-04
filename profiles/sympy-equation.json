@@ -1,0 +1,49 @@
+{
+  "schema_version": "umr/v0.1",
+  "id": "urn:umr:local:sympy-equation",
+  "kind": "tool",
+  "display_name": "SymPy exact equation solver",
+  "description": "Solve a single-variable or multivariable algebraic equation using a restricted mathematical expression grammar.",
+  "source": {
+    "publisher": "SymPy contributors",
+    "artifact_url": "https://github.com/sympy/sympy",
+    "revision": null,
+    "artifact_digest": null,
+    "license": {"code": "BSD-3-Clause", "weights": null, "data": null}
+  },
+  "capabilities": [{
+    "task_id": "math.solve_equation",
+    "input_schema": {
+      "type": "object",
+      "required": ["equation"],
+      "properties": {"equation": {"type": "string", "maxLength": 256}}
+    },
+    "output_schema": {
+      "type": "object",
+      "required": ["equation", "solutions", "verification"],
+      "properties": {
+        "equation": {"type": "string"},
+        "solutions": {"type": "array"},
+        "verification": {"type": "object", "required": ["passed", "method", "scope"]}
+      }
+    },
+    "applicability": {"geography": "global"},
+    "data_requirements": []
+  }],
+  "deployments": [{
+    "id": "sympy-equation-local",
+    "kind": "local",
+    "adapter": "sympy-equation",
+    "endpoint_ref": "local://allowlisted-adapter",
+    "status": "ready",
+    "auth_scopes": [],
+    "cost": {"currency": "USD", "amount": 0, "unit": "request", "status": "local-compute"}
+  }],
+  "evaluations": [],
+  "quality_evidence_level": "none",
+  "runtime_status": {"status": "unknown", "last_probe": null, "latency_ms": null},
+  "trust": {
+    "metadata_status": "curated",
+    "execution_status": "allowlisted-restricted-ast"
+  }
+}

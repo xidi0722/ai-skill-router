@@ -1,0 +1,73 @@
+{
+  "schema_version": "umr/v0.1",
+  "id": "urn:umr:open-meteo:google-weathernext2-ensemble",
+  "kind": "application",
+  "display_name": "Google WeatherNext 2 Ensemble via Open-Meteo",
+  "description": "Daily ensemble precipitation forecast for coordinates and a local calendar date.",
+  "source": {
+    "publisher": "Open-Meteo / Google DeepMind",
+    "artifact_url": "https://open-meteo.com/en/docs/google-weathernext-api",
+    "revision": null,
+    "artifact_digest": null,
+    "license": {"code": null, "weights": null, "data": null}
+  },
+  "capabilities": [{
+    "task_id": "weather.precipitation_forecast",
+    "input_schema": {
+      "type": "object",
+      "required": ["latitude", "longitude", "target_date"],
+      "properties": {
+        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "target_date": {"type": "string", "format": "date"},
+        "timezone": {"type": "string"}
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "required": [
+        "target_date",
+        "precipitation_sum_mm",
+        "quality_verified_by_this_project"
+      ],
+      "properties": {
+        "location": {"type": "object"},
+        "target_date": {"type": "string", "format": "date"},
+        "precipitation_sum_mm": {"type": ["number", "null"], "minimum": 0},
+        "rain_sum_mm": {"type": ["number", "null"], "minimum": 0},
+        "precipitation_hours": {"type": ["number", "null"], "minimum": 0},
+        "quality_verified_by_this_project": {"type": "boolean"},
+        "model": {"type": "string"},
+        "source": {"type": "string", "format": "uri"}
+      }
+    },
+    "applicability": {
+      "geography": "global",
+      "max_horizon_days": 14,
+      "native_temporal_resolution_hours": 6
+    },
+    "data_requirements": ["latitude", "longitude", "timezone"]
+  }],
+  "deployments": [{
+    "id": "open-meteo-weathernext2",
+    "kind": "hosted_api",
+    "adapter": "open-meteo-weathernext2",
+    "endpoint_ref": "fixed-adapter://open-meteo-weathernext2",
+    "status": "unknown",
+    "auth_scopes": [],
+    "cost": {
+      "currency": "USD",
+      "amount": null,
+      "unit": "request",
+      "status": "check-current-provider-terms"
+    }
+  }],
+  "evaluations": [],
+  "quality_evidence_level": "none",
+  "runtime_status": {"status": "unknown", "last_probe": null, "latency_ms": null},
+  "trust": {
+    "metadata_status": "provider-documentation",
+    "execution_status": "fixed-host-allowlisted-adapter",
+    "quality_status": "not-independently-backtested"
+  }
+}

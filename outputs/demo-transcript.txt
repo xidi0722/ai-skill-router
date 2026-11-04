@@ -1,0 +1,9 @@
+AI Skill Router | offline demo
+All comparison candidates, scores and approvals below are synthetic fixtures.
+1. Math route: SymPy -> solutions -2, 2 (substitution verified)
+2. Synthetic comparison: fixture-a 2.0 < fixture-b 4.0 points -> select fixture-a
+   Same synthetic task, dataset and metric; lower is better; approvals supplied locally.
+   Source: example.org/synthetic-demo; evidence digest: 718fae8b06146816...
+3. Revision changed v1 -> v2: ABSTAIN (approved evidence no longer matches)
+   Reason: no complete approved metric evidence
+Demo complete. Synthetic scores are not real benchmark evidence.

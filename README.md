@@ -1,95 +1,75 @@
-# Universal Model Router
+# AI Skill Router
 
-Universal Model Router is an early, evidence-aware capability layer for discovering, selecting, executing, and checking existing models and scientific tools. The first MVP supports curated local profiles, metadata-only Hugging Face Hub discovery, exact equation solving with SymPy, and a fixed-host Open-Meteo WeatherNext 2 forecast adapter.
+**An early evidence-aware routing prototype for scientific tools, with auditable decisions and abstention.**
 
-This project is not a general model marketplace and does not execute arbitrary model repositories, downloaded code, or MCP servers. Discovering a repository does not make it executable.
+[繁體中文](README.zh-TW.md) · [Contributing](CONTRIBUTING.md) · [Report an issue](https://github.com/xidi0722/ai-skill-router/issues)
 
-## Install
+An agent needs more than a tool name: is the tool executable, does its evidence apply to this task, and does that evidence still match the artifact version? This prototype checks those conditions and can abstain when a required comparison cannot be made.
 
-Python 3.11 or later is required.
+The offline demo solves `x² − 4 = 0`, compares two **synthetic** candidates, then changes one revision and shows an abstention. The comparison scores and approvals are fixtures, not real model benchmarks.
 
-    python -m pip install -e .
+![Rendered transcript of the offline demo, generated from recorded output](assets/demo-transcript.png)
 
-## Develop and verify locally
+## Quickstart
 
-    python -m pip install -e ".[test]" -c constraints-dev.txt
-    python -m pytest -q
-    python tools/run_offline_evaluation.py
-    python tools/run_evidence_ranking_evaluation.py
+Requires Python 3.11+ and pip. From a clone of this repository:
 
-The first offline evaluation writes 50 policy cases to `outputs/offline-evaluation.json` and `.md`. The evidence ranking evaluation writes 36 comparison cases to `outputs/evidence-ranking-evaluation.json` and `.md`. Both are synthetic fixtures and are not evidence about real model quality. See [Evidence Contract and public source audit](outputs/evidence-routing-evaluation.md) and [public score source audit](outputs/evidence-source-audit.md).
+```sh
+python -m pip install -e .
+python examples/offline_demo.py
+```
 
-On Windows with a standard Python installation, create an isolated environment and run the same checks from PowerShell:
+No API key or network is required to run the demo after installation. Expected results: solutions `-2, 2` verified by substitution; synthetic candidate `fixture-a` selected; then `ABSTAIN` after its revision changes. On Windows, use `py -3` instead of `python` if needed.
 
-    py -3 -m venv .venv
-    .\.venv\Scripts\python.exe -m pip install -e ".[test]" -c constraints-dev.txt
-    .\.venv\Scripts\python.exe -m pytest -q
-    .\.venv\Scripts\python.exe tools\run_offline_evaluation.py
-    .\.venv\Scripts\python.exe tools\run_evidence_ranking_evaluation.py
-    .\.venv\Scripts\umr.exe route --request examples\solve.json --execute
+## Who is this for?
 
-## Try the local equation solver
+Agent developers and scientific-tool integrators exploring explicit eligibility, evidence and failure reasons. Evaluation researchers can inspect the fixture datasets and compare routing policies. The current implementation is a research prototype.
 
-    umr route --request examples/solve.json --execute
+## What works today
 
-The request format is:
+- Curated local capability profiles; Hugging Face discovery returns metadata only.
+- Allowlisted SymPy equation solver and fixed-host Open-Meteo WeatherNext adapter.
+- Optional approved, version-bound evidence comparison with structured abstention.
+- Python service, CLI and localhost HTTP API.
 
-    {
-      "task_id": "math.solve_equation",
-      "inputs": {"equation": "x**2 - 4 = 0"},
-      "constraints": {}
-    }
+The weather service has not been backtested by this project. Public benchmark scores are not bound to its deployment. The local approval ledger is unsigned; SymPy's subprocess timeout is not a complete sandbox. Natural-language task parsing, arbitrary model execution and MCP clients are not implemented. See [implementation status](outputs/implementation-status.md) and [evidence limits](outputs/evidence-routing-evaluation.md).
 
-The solver accepts numeric constants, variable names, parentheses, +, -, *, division by a non-zero numeric constant, and non-negative integer powers up to 10. It rejects calls, attributes, indexing, symbolic denominators, and all other Python syntax.
+```mermaid
+flowchart LR
+    A[Normalized task request] --> B[Local profiles / metadata discovery]
+    B --> C[Eligibility checks]
+    C --> D[Optional approved evidence comparison]
+    D -->|eligible| E[Allowlisted adapter]
+    D -->|insufficient evidence| F[Abstain with reasons]
+    E --> G[Output checks and provenance]
+```
 
-## Try the WeatherNext adapter
+## More examples and verification
 
-    umr route --request examples/weather.json --execute
+```sh
+umr route --request examples/solve.json --execute
+python -m pip install -e ".[test]" -c constraints-dev.txt
+python -m pytest -q
+python tools/run_offline_evaluation.py
+python tools/run_evidence_ranking_evaluation.py
+```
 
-The request must include latitude, longitude, target date, and timezone. The adapter calls a fixed Open-Meteo HTTPS host; callers cannot supply a URL. The response includes the forecast source and marks forecast quality as unvalidated by this project. The CLI and HTTP service do not configure trusted benchmark digests, so `require_independent_evidence: true` abstains by default. A Python integration may inject administrator-approved full-record digests into `RouterService`; a profile's `verified_by` string alone is not trusted. The example date is fixed; update it to a local date in the current forecast window before use.
+Both offline evaluation datasets use synthetic fixtures and do not establish real model quality. Weather and Hugging Face commands use external services and are optional; see [architecture](outputs/architecture.md), [research](outputs/research-report.md), [evidence audit](outputs/evidence-source-audit.md), and the [Profile schema](src/umr/schemas/capability-profile.schema.json).
 
-External API terms, availability, and current pricing should be checked before production use. No external API is called during installation.
+Optional live-service and localhost commands:
 
-## Discover Hugging Face models
+```sh
+umr discover --task-id vision.image_classification
+umr route --request examples/weather.json --execute
+umr serve
+```
 
-    umr discover --task-id vision.image_classification
+For the weather example, update the target date to the current forecast window and check the provider's terms. The HTTP server listens on localhost; `/health`, `/profiles`, `/schema`, and `/route` are available. Strict numeric comparison uses `require_quality_comparison` and `comparison_metric_id` constraints and can load a separate ledger through `--approval-ledger`; see the [evidence contract](outputs/evidence-routing-evaluation.md).
 
-This connector returns public Hub metadata only. It does not infer a runnable endpoint from model weights or a model card. Such results are marked metadata_only and cannot be selected for execution.
+## Troubleshooting
 
-Supported task IDs map to Hub pipeline tags:
+- `No module named umr`: install with the same Python interpreter used for the demo.
+- SymPy timeout or worker failure: use a Python installation with subprocess support.
+- Windows `python` opens the Store: install Python or use the `py -3` launcher.
 
-- vision.image_classification
-- vision.object_detection
-- audio.automatic_speech_recognition
-- text.text_classification
-
-## Local HTTP API
-
-    umr serve
-
-The server binds to 127.0.0.1:8765 only.
-
-- GET /health
-- GET /profiles
-- GET /schema
-- POST /route
-
-POST a Task Request to /route. Add "execute": true to the request to run the selected allowlisted adapter. The route decision is returned with candidate exclusions, evidence level, reasons, and provenance. Execution failures return `execution.status: "failed"` with a stable error code and the selected profile/deployment/adapter provenance; provider exception text and request URLs are redacted.
-
-For a strict numeric quality comparison, add `require_quality_comparison: true` and `comparison_metric_id` to constraints. Pass a separately maintained approval ledger with `--approval-ledger`; the router abstains when records are unapproved, revoked, stale, or incomparable. The ledger is a local administrative file and has no signature or identity verification in this MVP.
-
-## Research and design
-
-- [Prior art research](outputs/research-report.md)
-- [Architecture and MVP](outputs/architecture.md)
-- [Threat model](outputs/threat-model.md)
-- [Implementation status](outputs/implementation-status.md)
-- [Capability Profile schema](src/umr/schemas/capability-profile.schema.json)
-
-## Current limits
-
-- There is no historical forecast backtest bundled with the MVP. WeatherNext results are operational API outputs, not independently verified predictions.
-- HF discovery is not an execution adapter.
-- Costs and service terms can change; unknown costs remain unknown and strict cost policies reject them.
-- The MVP exposes HTTP and Python interfaces, but does not yet implement an MCP server, ARD registry client, local model sandbox, or domain-specific biology/vision evaluators.
-- The localhost API is not hardened for public traffic. SymPy runs in a terminable child process with a wall-clock timeout, but has no memory quota or full OS sandbox.
+Issues and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [the roadmap](ROADMAP.md) before starting.

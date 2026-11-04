@@ -1,6 +1,8 @@
 # Publication drafts — review before posting
 
 Repository: https://github.com/xidi0722/ai-skill-router
+Offline demo: https://github.com/xidi0722/ai-skill-router/blob/main/examples/offline_demo.py
+Releases: https://github.com/xidi0722/ai-skill-router/releases
 
 ## Technical article (English)
 

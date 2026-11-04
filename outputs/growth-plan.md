@@ -10,12 +10,12 @@ Name: **AI Skill Router** for consistency with the repository; Universal Model R
 
 - Description: Evidence-aware routing for scientific tools, with auditable decisions and abstention.
 - Homepage: leave unset until an actual maintained project site exists.
-- Suggested topics: python, agent, scientific-computing, model-routing, sympy. Review GitHub topic availability before applying; none were changed remotely.
-- Social preview: assets/social-preview.png, 1280×640. No remote settings changed.
+- Applied topics: python, scientific-computing, sympy, model-routing, tool-calling.
+- Social preview: assets/social-preview.png, 1280×640. Upload requires enabling file URL access for the Chrome extension and remains incomplete.
 
 ## Community research (checked 2026-11-04)
 
-- [Show HN rules](https://news.ycombinator.com/showhn.html): for something the author made that people can try; author should be present for discussion, avoid asking friends for upvotes, and ensure the project is ready to try. Audience: developers interested in practical agent reliability.
+- [Show HN rules](https://news.ycombinator.com/showhn.html), rechecked 2026-11-04: for something the author made that people can try; author should be present for discussion, avoid asking friends for upvotes, and ensure the project is ready to try. Audience: developers interested in practical agent reliability.
 - [DEV Community Code of Conduct](https://dev.to/code-of-conduct): cite sources, follow its AI guidelines and disclose AI assistance where used. Audience: developers reading a technical walkthrough. Review current rules before posting.
 - [Reddit platform rules](https://redditinc.com/policies/reddit-rules): community-specific rules also apply. A target subreddit and its current self-promotion rules have not been selected or verified; do not treat the draft as approved for posting.
 
